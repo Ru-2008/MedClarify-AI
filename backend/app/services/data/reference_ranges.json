@@ -1,0 +1,324 @@
+{
+  "hemoglobin": {
+    "display_name": "Hemoglobin",
+    "gender_specific": true,
+    "default_unit": "g/dL",
+    "ranges": {
+      "male": {
+        "normal": {"low": 13.5, "high": 17.5},
+        "critical": {"low": 8.0, "high": 20.0}
+      },
+      "female": {
+        "normal": {"low": 12.0, "high": 15.5},
+        "critical": {"low": 8.0, "high": 20.0}
+      }
+    }
+  },
+  "rbc": {
+    "display_name": "RBC Count",
+    "gender_specific": true,
+    "default_unit": "x10^6/µL",
+    "ranges": {
+      "male": {
+        "normal": {"low": 4.5, "high": 5.9}
+      },
+      "female": {
+        "normal": {"low": 4.0, "high": 5.2}
+      }
+    }
+  },
+  "wbc": {
+    "display_name": "WBC Count",
+    "gender_specific": false,
+    "default_unit": "x10^3/µL",
+    "ranges": {
+      "normal": {"low": 4.0, "high": 11.0},
+      "critical": {"low": 2.0, "high": 30.0}
+    }
+  },
+  "platelet": {
+    "display_name": "Platelet Count",
+    "gender_specific": false,
+    "default_unit": "x10^3/µL",
+    "ranges": {
+      "normal": {"low": 150.0, "high": 450.0},
+      "critical": {"low": 50.0, "high": 1000.0}
+    }
+  },
+  "glucose": {
+    "display_name": "Glucose",
+    "gender_specific": false,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "normal": {"low": 70.0, "high": 100.0},
+      "critical": {"low": 50.0, "high": 400.0}
+    }
+  },
+  "urea": {
+    "display_name": "Urea",
+    "gender_specific": false,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "normal": {"low": 15.0, "high": 45.0}
+    }
+  },
+  "creatinine": {
+    "display_name": "Creatinine",
+    "gender_specific": true,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "male": {
+        "normal": {"low": 0.6, "high": 1.2}
+      },
+      "female": {
+        "normal": {"low": 0.5, "high": 1.1}
+      }
+    }
+  },
+  "cholesterol": {
+    "display_name": "Total Cholesterol",
+    "gender_specific": false,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "normal": {"high": 200.0},
+      "borderline": {"low": 200.0, "high": 239.0},
+      "high": {"low": 240.0}
+    }
+  },
+  "triglycerides": {
+    "display_name": "Triglycerides",
+    "gender_specific": false,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "normal": {"high": 150.0},
+      "borderline": {"low": 150.0, "high": 199.0},
+      "high": {"low": 200.0}
+    }
+  },
+  "hdl": {
+    "display_name": "HDL Cholesterol",
+    "gender_specific": true,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "male": {
+        "normal": {"low": 40.0, "high": 60.0}
+      },
+      "female": {
+        "normal": {"low": 50.0, "high": 60.0}
+      }
+    }
+  },
+  "ldl": {
+    "display_name": "LDL Cholesterol",
+    "gender_specific": false,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "normal": {"high": 100.0},
+      "borderline": {"low": 100.0, "high": 129.0},
+      "high": {"low": 130.0}
+    }
+  },
+  "tsh": {
+    "display_name": "TSH",
+    "gender_specific": false,
+    "default_unit": "µIU/mL",
+    "ranges": {
+      "normal": {"low": 0.4, "high": 4.5}
+    }
+  },
+  "hba1c": {
+    "display_name": "HbA1c",
+    "gender_specific": false,
+    "default_unit": "%",
+    "ranges": {
+      "normal": {"high": 5.7},
+      "borderline": {"low": 5.7, "high": 6.4},
+      "high": {"low": 6.5}
+    }
+  },
+  "hematocrit": {
+    "display_name": "Hematocrit",
+    "gender_specific": true,
+    "default_unit": "%",
+    "ranges": {
+      "male": {
+        "normal": {"low": 41.0, "high": 50.0}
+      },
+      "female": {
+        "normal": {"low": 36.0, "high": 48.0}
+      }
+    }
+  },
+  "mcv": {
+    "display_name": "MCV",
+    "gender_specific": false,
+    "default_unit": "fL",
+    "ranges": {
+      "normal": {"low": 80.0, "high": 100.0}
+    }
+  },
+  "mch": {
+    "display_name": "MCH",
+    "gender_specific": false,
+    "default_unit": "pg",
+    "ranges": {
+      "normal": {"low": 27.0, "high": 33.0}
+    }
+  },
+  "mchc": {
+    "display_name": "MCHC",
+    "gender_specific": false,
+    "default_unit": "g/dL",
+    "ranges": {
+      "normal": {"low": 32.0, "high": 36.0}
+    }
+  },
+  "rdw": {
+    "display_name": "RDW",
+    "gender_specific": false,
+    "default_unit": "%",
+    "ranges": {
+      "normal": {"low": 11.0, "high": 15.0}
+    }
+  },
+  "sodium": {
+    "display_name": "Sodium",
+    "gender_specific": false,
+    "default_unit": "mmol/L",
+    "ranges": {
+      "normal": {"low": 135.0, "high": 145.0},
+      "critical": {"low": 125.0, "high": 155.0}
+    }
+  },
+  "potassium": {
+    "display_name": "Potassium",
+    "gender_specific": false,
+    "default_unit": "mmol/L",
+    "ranges": {
+      "normal": {"low": 3.5, "high": 5.0},
+      "critical": {"low": 3.0, "high": 6.0}
+    }
+  },
+  "chloride": {
+    "display_name": "Chloride",
+    "gender_specific": false,
+    "default_unit": "mmol/L",
+    "ranges": {
+      "normal": {"low": 96.0, "high": 106.0}
+    }
+  },
+  "bicarbonate": {
+    "display_name": "Bicarbonate",
+    "gender_specific": false,
+    "default_unit": "mmol/L",
+    "ranges": {
+      "normal": {"low": 22.0, "high": 29.0}
+    }
+  },
+  "calcium": {
+    "display_name": "Calcium",
+    "gender_specific": false,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "normal": {"low": 8.5, "high": 10.5}
+    }
+  },
+  "phosphorus": {
+    "display_name": "Phosphorus",
+    "gender_specific": false,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "normal": {"low": 2.5, "high": 4.5}
+    }
+  },
+  "magnesium": {
+    "display_name": "Magnesium",
+    "gender_specific": false,
+    "default_unit": "mg/dL",
+    "ranges": {
+      "normal": {"low": 1.7, "high": 2.2}
+    }
+  },
+  "t3": {
+    "display_name": "Triiodothyronine (T3)",
+    "gender_specific": false,
+    "default_unit": "ng/mL",
+    "ranges": {
+      "normal": {"low": 0.8, "high": 2.0}
+    }
+  },
+  "t4": {
+    "display_name": "Thyroxine (T4)",
+    "gender_specific": false,
+    "default_unit": "ug/dL",
+    "ranges": {
+      "normal": {"low": 5.0, "high": 12.0}
+    }
+  },
+  "ft3": {
+    "display_name": "Free T3",
+    "gender_specific": false,
+    "default_unit": "pg/mL",
+    "ranges": {
+      "normal": {"low": 2.3, "high": 4.2}
+    }
+  },
+  "ft4": {
+    "display_name": "Free T4",
+    "gender_specific": false,
+    "default_unit": "ng/dL",
+    "ranges": {
+      "normal": {"low": 0.8, "high": 1.8}
+    }
+  },
+  "vitamin d": {
+    "display_name": "Vitamin D",
+    "gender_specific": false,
+    "default_unit": "ng/mL",
+    "ranges": {
+      "normal": {"low": 30.0, "high": 100.0}
+    }
+  },
+  "vitamin b12": {
+    "display_name": "Vitamin B12",
+    "gender_specific": false,
+    "default_unit": "pg/mL",
+    "ranges": {
+      "normal": {"low": 200.0, "high": 900.0}
+    }
+  },
+  "folate": {
+    "display_name": "Folate",
+    "gender_specific": false,
+    "default_unit": "ng/mL",
+    "ranges": {
+      "normal": {"low": 2.0, "high": 20.0}
+    }
+  },
+  "iron": {
+    "display_name": "Iron",
+    "gender_specific": true,
+    "default_unit": "ug/dL",
+    "ranges": {
+      "male": {
+        "normal": {"low": 65.0, "high": 175.0}
+      },
+      "female": {
+        "normal": {"low": 50.0, "high": 170.0}
+      }
+    }
+  },
+  "ferritin": {
+    "display_name": "Ferritin",
+    "gender_specific": true,
+    "default_unit": "ng/mL",
+    "ranges": {
+      "male": {
+        "normal": {"low": 30.0, "high": 400.0}
+      },
+      "female": {
+        "normal": {"low": 15.0, "high": 150.0}
+      }
+    }
+  }
+}

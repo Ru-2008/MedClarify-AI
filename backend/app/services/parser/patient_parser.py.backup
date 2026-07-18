@@ -1,0 +1,217 @@
+"""
+Patient information parser for medical reports.
+Extracts patient details such as name, age, gender, report date, and optional fields.
+"""
+
+import logging
+import re
+from typing import Dict, Optional
+
+from .text_cleaner import clean_text
+
+logger = logging.getLogger(__name__)
+
+
+def parse_patient_info(text: str) -> Dict[str, Optional[str]]:
+    """
+    Extract patient information from the given text.
+
+    Args:
+        text: Extracted text from the medical report.
+
+    Returns:
+        Dictionary with keys: 'name', 'age', 'gender', 'report_date',
+        'lab_name', 'doctor_name', 'patient_id'.
+        Values are strings or None if not found.
+    """
+    logger.info("Starting patient information parsing")
+
+    # Initialize result with None values
+    result = {
+        "name": None,
+        "age": None,
+        "gender": None,
+        "report_date": None,
+        "lab_name": None,
+        "doctor_name": None,
+        "patient_id": None,
+    }
+
+    if not text:
+        logger.warning("Empty text provided for patient parsing")
+        return result
+
+    # Clean the text
+    cleaned_text = clean_text(text)
+
+    # Also work with original lines for context
+    lines = [line.strip() for line in cleaned_text.split('\n') if line.strip()]
+
+    # Track what we've found to avoid duplicates/overwrites
+    found_fields = set()
+
+    # Extract name with more specific patterns
+    if "name" not in found_fields:
+        name_patterns = [
+            # More specific name patterns that avoid picking up labels
+            r'(?i)(?:^|\s|\n)name\s*:?\s*([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)(?=\s*(?:\n|age|sex|gender|date|id|\d{1,2}[\/\-]|$))',
+            r'(?i)(?:^|\s|\n)patient\s*name\s*:?\s*([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)(?=\s*(?:\n|age|sex|gender|date|id|\d{1,2}[\/\-]|$))',
+            r'(?i)(?:^|\s|\n)name\s+of\s+patient\s*:?\s*([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)(?=\s*(?:\n|age|sex|gender|date|id|\d{1,2}[\/\-]|$))',
+            # Look for names that appear after common labels but before other field indicators
+            r'(?i)(?:^|\s|\n)(?:name|patient\s*name)\s*:?\s*([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)(?=\s*(?:\n|age|sex|gender|date|id|\d{1,2}[\/\-]|$))',
+        ]
+
+        for pattern in name_patterns:
+            match = re.search(pattern, cleaned_text)
+            if match:
+                name = match.group(1).strip()
+                # Additional validation: should look like a real name
+                if (len(name) >= 3 and
+                    not any(x in name.lower() for x in ['client', 'lab', 'id', 'number', 'report', 'date', 'doctor', 'page'])):
+                    # Limit to reasonable name length
+                    if len(name) <= 50:
+                        result["name"] = name
+                        found_fields.add("name")
+                        break
+
+    # Extract age with better validation
+    if "age" not in found_fields:
+        age_patterns = [
+            r'(?i)(?:^|\s|\n)age\s*:?\s*(\d{1,3})(?=\s*(?:\s*years?\s*old|\s*yrs?|\s*[^\d]))',
+            r'(?i)(?:^|\s|\n)age\s*\(years\)\s*:?\s*(\d{1,3})',
+            r'(?i)(?:^|\s|\n)(\d{1,3})\s*years?\s*old(?=\s|$)',
+            r'(?i)(?:^|\s|\n)(\d{1,3})\s*yrs?(?:\s*old)?(?=\s|$)',
+        ]
+
+        for pattern in age_patterns:
+            match = re.search(pattern, cleaned_text)
+            if match:
+                age_str = match.group(1)
+                if age_str.isdigit():
+                    age = int(age_str)
+                    # Reasonable age range for patients
+                    if 0 <= age <= 120:
+                        result["age"] = str(age)
+                        found_fields.add("break")
+
+    # Extract gender with better context
+    if "gender" not in found_fields:
+        gender_patterns = [
+            r'(?i)(?:^|\s|\n)sex\s*:?\s*(male|female|other|m|f)\b',
+            r'(?i)(?:^|\s|\n)gender\s*:?\s*(male|female|other|m|f)\b',
+            # Look for standalone gender indicators
+            r'(?i)\b(male|female|m|f)\b(?=\s*[^\w]|$)'
+        ]
+
+        for pattern in gender_patterns:
+            match = re.search(pattern, cleaned_text)
+            if match:
+                gender = match.group(1).strip()
+                if gender.upper() in ['M', 'F', 'MALE', 'FEMALE', 'OTHER']:
+                    # Normalize
+                    if gender.upper() == 'M':
+                        gender = 'Male'
+                    elif gender.upper() == 'F':
+                        gender = 'Female'
+                    elif gender.upper() == 'OTHER':
+                        gender = 'Other'
+                    result["gender"] = gender
+                    found_fields.add("gender")
+                    break
+
+    # Extract report date with better patterns
+    if "report_date" not in found_fields:
+        date_patterns = [
+            # More specific date patterns (supporting DD-MMM-YYYY or DD/MM/YYYY formats)
+            r'(?i)(?:^|\s|\n)date\s*:?\s*(\d{1,2}[-\/\.](?:[A-Za-z]{3}|\d{1,2})[-\/\.]\d{2,4})',
+            r'(?i)(?:^|\s|\n)report\s*date\s*:?\s*(\d{1,2}[-\/\.](?:[A-Za-z]{3}|\d{1,2})[-\/\.]\d{2,4})',
+            r'(?i)(?:^|\s|\n)date\s+of\s+report\s*:?\s*(\d{1,2}[-\/\.](?:[A-Za-z]{3}|\d{1,2})[-\/\.]\d{2,4})',
+            # Look for dates in common formats that aren't likely to be other IDs
+            r'(?i)(?:^|\s|\n)(?:dated?|report\s*date)\s*:?\s*(\d{1,2}[-\/\.](?:[A-Za-z]{3}|\d{1,2})[-\/\.]\d{2,4})(?!\s*\d)',
+        ]
+
+        for pattern in date_patterns:
+            match = re.search(pattern, cleaned_text)
+            if match:
+                date_str = match.group(1)
+                # Basic validation - avoid matching IDs or other numbers
+                if re.match(r'^\d{1,2}[-\/\.](?:[A-Za-z]{3}|\d{1,2})[-\/\.]\d{2,4}$', date_str):
+                    result["report_date"] = date_str
+                    found_fields.add("report_date")
+                    break
+
+    # Extract lab name (optional)
+    if "lab_name" not in found_fields:
+        lab_patterns = [
+            # Explicit label patterns (require colon after label)
+            r'(?i)(?:^|\s|\n)laboratory\s*:\s*([^\n\r]+?)(?=\s*\n|\s*(?:doctor|dr|patient|id|address|phone|$))',
+            r'(?i)(?:^|\s|\n)lab\s*:\s*([^\n\r]+?)(?=\s*\n|\s*(?:doctor|dr|patient|id|address|phone|$))',
+            r'(?i)(?:^|\s|\n)testing\s*facility\s*:\s*([^\n\r]+?)(?=\s*\n|\s*(?:doctor|dr|patient|id|address|phone|$))',
+            # Pattern for labs with implicit name (no explicit label): look for lab keywords line followed by "Lab" line
+            r'(?i)(?:^|\s|\n)(?=.*(?:diagnostics|laboratory|medical|center|institute|labs)[^\n]*\n\s*Lab)([^\n\r]+?)(?=\s*\n|\s*(?:doctor|dr|patient|id|address|phone|$))',
+        ]
+
+        for pattern in lab_patterns:
+            match = re.search(pattern, cleaned_text)
+            if match:
+                lab_name = match.group(1).strip()
+                # Filter out obvious non-lab names
+                if (lab_name and
+                    len(lab_name) >= 3 and
+                    not any(x in lab_name.lower() for x in ['patient', 'doctor', 'id', 'number', 'date', 'page', 'report'])):
+                    result["lab_name"] = lab_name
+                    found_fields.add("lab_name")
+                    break
+
+    # Extract doctor name (optional)
+    if "doctor_name" not in found_fields:
+        doctor_patterns = [
+            r'(?i)(?:^|\s|\n)doctor\s*:?\s*([Dr\.]?\s*[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:\s*,?\s*(?:md|dr)\.?))',
+            r'(?i)(?:^|\s|\n)dr\.?\s*:?\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
+            r'(?i)(?:^|\s|\n)attending\s*physician\s*:?\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
+            # Look for common doctor name patterns but be more specific
+            r'(?i)(?:^|\s|\n)(?:dr\.?\s*[a-z]+\s+[a-z]+|\b[dr\.]?\s*[a-z]+\s*,?\s*(?:md|doctor)\b)',
+        ]
+
+        for pattern in doctor_patterns:
+            match = re.search(pattern, cleaned_text)
+            if match:
+                doctor = match.group(1).strip() if match.lastindex >= 1 else match.group(0).strip()
+                # Clean up and validate
+                doctor = re.sub(r'\s+', ' ', doctor)  # Normalize whitespace
+                if (doctor and
+                    len(doctor) >= 3 and
+                    len(doctor) <= 100 and  # Reasonable length
+                    not any(x in doctor.lower() for x in ['page', 'report', 'id', 'number', 'date', 'laboratory', 'lab'])):
+                    result["doctor_name"] = doctor
+                    found_fields.add("doctor_name")
+                    break
+
+    # Extract patient ID (optional)
+    if "patient_id" not in found_fields:
+        id_patterns = [
+            r'(?i)(?:^|\s|\n)patient\s*id\s*:?\s*([A-Z0-9\-]+)',
+            r'(?i)(?:^|\s|\n)mrn\s*:?\s*([A-Z0-9\-]+)',
+            r'(?i)(?:^|\s|\n)medical\s*record\s*number\s*:?\s*([A-Z0-9\-]+)',
+            r'(?i)(?:^|\s|\n)id\s*:?\s*([A-Z0-9\-]{2,20})(?=\s*(?:\s|$|[A-Za-z]))',
+        ]
+
+        for pattern in id_patterns:
+            match = re.search(pattern, cleaned_text)
+            if match:
+                patient_id = match.group(1).strip()
+                # Validate it looks like an ID (not a name or other text)
+                if (patient_id and
+                    len(patient_id) >= 2 and
+                    len(patient_id) <= 20 and
+                    re.match(r'^[A-Z0-9\-]+$', patient_id.upper()) and
+                    not any(x in patient_id.lower() for x in ['patient', 'doctor', 'name', 'date', 'report'])):
+                    result["patient_id"] = patient_id
+                    found_fields.add("patient_id")
+                    break
+
+    # Log what we found
+    found_count = len([v for v in result.values() if v is not None])
+    logger.info(f"Patient information parsed: {found_count}/7 fields found: {result}")
+
+    return result

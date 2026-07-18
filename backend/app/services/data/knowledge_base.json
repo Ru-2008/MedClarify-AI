@@ -1,0 +1,150 @@
+{
+  "hemoglobin": {
+    "LOW": {
+      "explanation": "may indicate iron deficiency, vitamin deficiency, or mild anemia",
+      "recommendations": ["Discuss with your doctor to evaluate iron and vitamin B12 levels.", "Consider dietary adjustments or iron supplements under medical advice."]
+    },
+    "HIGH": {
+      "explanation": "can be associated with dehydration, smoking, or chronic lung conditions",
+      "recommendations": ["Ensure adequate hydration.", "Consult a healthcare provider for further investigation."]
+    }
+  },
+  "rbc": {
+    "LOW": {
+      "explanation": "may indicate anemia, fluid overload, or active blood loss",
+      "recommendations": ["Discuss these results with a healthcare provider for a complete blood evaluation.", "Identify any potential nutritional gaps in iron or vitamins."]
+    },
+    "HIGH": {
+      "explanation": "can be associated with dehydration, low blood oxygen, or living at high altitudes",
+      "recommendations": ["Avoid dehydration by drinking sufficient water.", "Consult a physician for further evaluation of blood oxygenation."]
+    }
+  },
+  "wbc": {
+    "LOW": {
+      "explanation": "can be associated with viral infections, bone marrow issues, or certain medications",
+      "recommendations": ["Protect yourself from infections and wash hands frequently.", "Consult a doctor to review any medications or identify underlying causes."]
+    },
+    "HIGH": {
+      "explanation": "may indicate active infection, inflammation, stress, or tissue injury",
+      "recommendations": ["Monitor for other signs of infection such as fever or pain.", "Seek medical evaluation to localize and treat the source of infection."]
+    }
+  },
+  "platelet": {
+    "LOW": {
+      "explanation": "may indicate increased destruction or decreased production of platelets, raising bleeding risks",
+      "recommendations": ["Avoid activities that carry a risk of bleeding or bruising.", "Consult a physician for a hematology review."]
+    },
+    "HIGH": {
+      "explanation": "can be associated with inflammation, iron deficiency, or active infection",
+      "recommendations": ["Seek doctor consultation to assess if there is underlying chronic inflammation."]
+    }
+  },
+  "glucose": {
+    "LOW": {
+      "explanation": "may indicate hypoglycemia, possibly due to prolonged fasting or insulin imbalance",
+      "recommendations": ["Consume a fast-acting source of sugar (e.g., fruit juice, candy).", "Consult your physician to adjust any glucose-lowering medications."]
+    },
+    "HIGH": {
+      "explanation": "is commonly seen in prediabetes, diabetes, or transient physiological stress",
+      "recommendations": ["Discuss these results with a healthcare provider for HbA1c testing.", "Monitor dietary intake of refined carbohydrates and sugars."]
+    },
+    "CRITICAL": {
+      "explanation": "indicates severely abnormal blood sugar levels that require immediate attention",
+      "recommendations": ["Seek immediate medical attention or consult an emergency care provider."]
+    }
+  },
+  "urea": {
+    "LOW": {
+      "explanation": "may indicate low protein intake, overhydration, or liver issues",
+      "recommendations": ["Review dietary protein intake with a nutritionist.", "Discuss liver function tests with your healthcare provider."]
+    },
+    "HIGH": {
+      "explanation": "can be associated with decreased kidney clearance or high protein intake",
+      "recommendations": ["Ensure adequate hydration to support kidney function.", "Discuss with a physician to evaluate overall kidney function."]
+    }
+  },
+  "creatinine": {
+    "LOW": {
+      "explanation": "may indicate decreased muscle mass or overhydration",
+      "recommendations": ["Maintain adequate physical activity and dietary protein.", "Discuss with your physician if you have underlying chronic conditions."]
+    },
+    "HIGH": {
+      "explanation": "can be associated with reduced kidney filtration or temporary dehydration",
+      "recommendations": ["Drink plenty of fluids and re-evaluate.", "Schedule a follow-up kidney function test (renal profile)."]
+    }
+  },
+  "cholesterol": {
+    "HIGH": {
+      "explanation": "may be associated with increased cardiovascular risk, calling for dietary review",
+      "recommendations": ["Consider a low-cholesterol, low-saturated-fat diet.", "Discuss with a doctor regarding lipid profile follow-ups and lifestyle changes."]
+    },
+    "BORDERLINE": {
+      "explanation": "is slightly elevated, suggesting monitoring and lifestyle adjustments",
+      "recommendations": ["Focus on healthy fats (e.g., olive oil, nuts) and regular physical exercise.", "Recheck cholesterol levels in 3 to 6 months."]
+    }
+  },
+  "triglycerides": {
+    "HIGH": {
+      "explanation": "may indicate elevated fat levels, sometimes associated with metabolic syndrome or dietary intake",
+      "recommendations": ["Limit sugar and alcohol intake.", "Incorporate regular cardiovascular exercises into your weekly routine."]
+    },
+    "BORDERLINE": {
+      "explanation": "is borderline high, recommending dietary modifications",
+      "recommendations": ["Reduce refined carbohydrates and increase dietary fiber.", "Discuss metabolic health with a healthcare provider."]
+    }
+  },
+  "ldl": {
+    "HIGH": {
+      "explanation": "may indicate increased plaque accumulation risk in arteries",
+      "recommendations": ["Consult a doctor to evaluate cardiovascular risk factors.", "Consider lifestyle improvements, including reduction of saturated fats."]
+    },
+    "BORDERLINE": {
+      "explanation": "is borderline high, indicating potential benefit from diet optimization",
+      "recommendations": ["Incorporate cholesterol-lowering foods (e.g., oats, beans) into your diet."]
+    }
+  },
+  "hdl": {
+    "LOW": {
+      "explanation": "may indicate reduced protection against cardiovascular deposits",
+      "recommendations": ["Increase physical activity, which can help raise HDL levels.", "Avoid smoking and consume healthy fats (e.g., omega-3)."]
+    }
+  },
+  "tsh": {
+    "LOW": {
+      "explanation": "may indicate an overactive thyroid (hyperthyroidism)",
+      "recommendations": ["Consult an endocrinologist for thyroid evaluation (FT3/FT4 levels)."]
+    },
+    "HIGH": {
+      "explanation": "may indicate an underactive thyroid (hypothyroidism)",
+      "recommendations": ["Consult a healthcare provider for thyroid hormone evaluation and follow-up."]
+    }
+  },
+  "hba1c": {
+    "HIGH": {
+      "explanation": "is commonly seen in prediabetes or diabetes, reflecting average blood sugar levels over the past 3 months",
+      "recommendations": ["Schedule a consultation with a physician or endocrinologist.", "Monitor daily sugar intake and incorporate low-glycemic foods."]
+    },
+    "BORDERLINE": {
+      "explanation": "indicates prediabetic levels, suggesting early dietary and lifestyle action",
+      "recommendations": ["Increase physical exercise to improve insulin sensitivity.", "Limit sugary beverages and process foods."]
+    }
+  },
+  "default": {
+    "LOW": {
+      "explanation": "is lower than the standard reference range",
+      "recommendations": ["Consult a doctor to evaluate potential underlying causes."]
+    },
+    "HIGH": {
+      "explanation": "is higher than the standard reference range",
+      "recommendations": ["Consult a doctor to evaluate potential underlying causes."]
+    },
+    "CRITICAL": {
+      "explanation": "is critically outside the standard reference range",
+      "recommendations": ["Seek prompt medical advice from a qualified healthcare provider."]
+    },
+    "BORDERLINE": {
+      "explanation": "is slightly outside the optimal range",
+      "recommendations": ["Monitor these levels and discuss lifestyle modifications with your doctor."]
+    }
+  }
+}

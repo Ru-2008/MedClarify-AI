@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --primary: 173 58% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 199 89% 48%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 173 58% 95%;
+    --border: 214 32% 91%;
+    --ring: 173 58% 39%;
+    --gradient-start: 173 58% 39%;
+    --gradient-end: 199 89% 48%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+    --primary: 173 58% 45%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 199 89% 55%;
+    --muted: 217 33% 14%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 173 40% 12%;
+    --border: 217 33% 18%;
+    --ring: 173 58% 45%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-sky-600 dark:from-teal-400 dark:to-sky-400;
+  }
+
+  .bg-gradient-brand {
+    @apply bg-gradient-to-r from-teal-600 to-sky-600 dark:from-teal-500 dark:to-sky-500;
+  }
+
+  .glass {
+    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/20 dark:border-slate-700/50;
+  }
+
+  .shadow-soft {
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 8px 24px rgba(15, 23, 42, 0.06);
+  }
+
+  .shadow-soft-lg {
+    box-shadow:
+      0 4px 6px rgba(15, 23, 42, 0.04),
+      0 20px 40px rgba(15, 23, 42, 0.08);
+  }
+}
